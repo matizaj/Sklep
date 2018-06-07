@@ -31,7 +31,7 @@ namespace SportStore.Tests
             
 
             //act
-            IEnumerable<Product> result = controller.Index().ViewData.Model as IEnumerable<Product>;
+            IEnumerable<Product> result = controller.Index(null).ViewData.Model as IEnumerable<Product>;
 
             //assert
             Assert.Equal(3, result.Count());

@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using SportStore.Models;
 using SportStore.Models.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SportStore.Controllers
 {
@@ -10,13 +12,17 @@ namespace SportStore.Controllers
     {
         private int pageSize = 3;
         private IRepository repository;
-        public ProductController(IRepository repo)
+        private UserManager<IdentityUser> _userManager;
+        public ProductController(IRepository repo, UserManager<IdentityUser> userManager)
         {
             repository = repo;
+            _userManager = userManager;
         }
        
-        public ViewResult Index(string category, int page=1)
+        public async Task<ViewResult> Index(string category, int page=1)
         {
+            await SeedUsers.Seed(_userManager);
+
             var products = repository.Products;
             if (!string.IsNullOrEmpty(category))
             {
@@ -37,7 +43,7 @@ namespace SportStore.Controllers
                     TotalItems = totalItems
                 }
             };
-
+            ViewBag.SelectedCat = category;
             return View(productList);
         }
 

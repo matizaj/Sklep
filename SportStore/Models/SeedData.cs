@@ -11,7 +11,8 @@ namespace SportStore.Models
     {
         public static void Seed(IApplicationBuilder app)
         {
-            AppDbContext context = app.ApplicationServices.GetRequiredService<AppDbContext>();
+            var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            AppDbContext context = scope.ServiceProvider.GetService< AppDbContext >();
             if (!context.Products.Any())
             {
                 context.Products.AddRange(
