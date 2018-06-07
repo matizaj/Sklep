@@ -1,0 +1,25 @@
+﻿@model ProductListViewModel
+
+
+@foreach (var p in Model.Products)
+{
+<div class="card m-5">
+    <div class="card-header">
+        @p.Name
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">@p.Category</h5>
+        <p class="card-text">@p.Description</p>
+        <p class="card-text">@p.Price</p>
+        <a href="#" class="btn btn-primary">Dodaj do koszyka</a>
+        <a href="#" class="btn btn-primary">Edytuj</a>
+        <a href="#" class="btn btn-primary">Usuń</a>
+    </div>
+</div>
+    
+}
+
+<div page-model="@Model.PageInfo" 
+     page-action="Index" 
+     page-url-category="@ViewBag.SelectedCat"></div>
+<a href="#" class="btn btn-primary ml-0">Dodaj produkt</a>

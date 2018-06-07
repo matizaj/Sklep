@@ -1,0 +1,12 @@
+﻿@model IEnumerable<string>
+
+@foreach(var cat in Model)
+{
+      <a class="btn @(cat==ViewBag.SelectedCat ? "btn-success" : "btn-secondary")          
+         btn-lg btn-block m-5"
+         asp-controller="Product" 
+         asp-action="Index" 
+         asp-route-category="@cat"
+         asp-route-page="1"         
+         >@cat</a>
+}

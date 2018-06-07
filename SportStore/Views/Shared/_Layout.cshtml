@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.msg</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>*@
+    <link asp-href-include="/lib/bootstrap/dist/css/*.css" rel="stylesheet"/>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary">
+        <span class="navbar-brand" mb-0 h1>Sport Store</span>
+    </nav>
+    <div>
+        <div class="row">
+            <div class="col-md-2 mt-5">
+                @await Component.InvokeAsync("CategoryList")
+            </div>
+            <div class="col-md-10 mt-2">
+                @RenderBody()
+            </div>
+            
+        </div>
+    </div>    
+</body>
+</html>
