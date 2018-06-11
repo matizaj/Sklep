@@ -4,22 +4,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SportStore.Models;
+using SportStore.Models.ViewModels;
 
 namespace SportStore.Controllers
 {
     public class CartController:Controller
     {
         private IRepository _productRepo;
-        private CartRepository _cartRepo;
-        public CartController(IRepository productRepo, CartRepository cartRepo)
+        private Cart _cartRepo;
+        public CartController(IRepository productRepo, Cart cartRepo)
         {
             _productRepo = productRepo;
             _cartRepo = cartRepo;
         }
-        public ViewResult Index() => View(_cartRepo.Items);
+        public IActionResult Index(string returnUrl) => View(new CartListViewModel
+        {
+            Items=_cartRepo.Items,
+            ReturnUrl = returnUrl
+        });
+
 
         [HttpPost]
-        public IActionResult AddToCart(int productId)
+        public IActionResult AddToCart(int productId, string returnUrl)
         {
             var product = _productRepo.Products.FirstOrDefault(x => x.ProductID == productId);
             if (product != null)
@@ -27,7 +33,18 @@ namespace SportStore.Controllers
                 _cartRepo.AddItem(product,1);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new {returnUrl});
+        }
+
+        public IActionResult RemoveLine(int productId, string returnUrl)
+        {
+            var product = _productRepo.Products.FirstOrDefault(x => x.ProductID == productId);
+            if (product != null)
+            {
+                _cartRepo.RemoveLine(product);
+            }
+
+            return RedirectToAction("Index", new { returnUrl });
         }
     }
 }

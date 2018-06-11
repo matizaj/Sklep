@@ -16,17 +16,22 @@ namespace SportStore.Controllers
         public ViewResult Index() => View();
 
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel login)
+        public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
             if (ModelState.IsValid)
             {
-                if ((await _signInManager.PasswordSignInAsync(login.Login, login.Password, false, false)).Succeeded)
+                if ((await _signInManager.PasswordSignInAsync(loginModel.Login, loginModel.Password, false, false)).Succeeded)
                 {
                     return RedirectToAction("Index", "Product");
                 }
                
             }
-            return View("Index",login);
+            return View("Index",loginModel);
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Product");
         }
     }
 }

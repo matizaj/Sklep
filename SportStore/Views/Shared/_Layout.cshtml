@@ -10,6 +10,14 @@
 <body>
     <nav class="navbar navbar-dark bg-primary">
         <span class="navbar-brand" mb-0 h1>Sport Store</span>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a asp-controller="Account" asp-action="Logout" class="navbar-brand">Wyloguj</a>
+        }
+        else
+        {
+            <a asp-controller="Account" asp-action="Index" class="navbar-brand">Zaloguj</a>
+        }
     </nav>
     <div>
         <div class="row">
