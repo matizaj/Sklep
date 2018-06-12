@@ -26,20 +26,11 @@ namespace SportStore.Models
             }
         }
 
-        //public virtual void RemoveLine1(Product product)
-        //{
-        //    //var items = Items.ToList();
-        //    var item = _items.FirstOrDefault(x => x.Product.ProductID == product.ProductID);
-
-        //    if (item != null)
-        //    {
-        //        item.Quantity += quantity;
-        //    }
-        //    else
-        //    {
-        //        _items.Add(new CartItem { ID = product.ProductID, Product = product, Quantity = quantity });
-        //    }
-        //}
+        public virtual decimal CalculateTotalValue()
+        {
+            var result = _items.Sum(e => e.Product.Price * e.Quantity);
+            return result;
+        }
         public virtual void RemoveLine(Product product) =>
             _items.RemoveAll(l => l.Product.ProductID == product.ProductID);
     }

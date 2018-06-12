@@ -8,35 +8,36 @@
     <title>title</title>
 </head>
 <body>
-<table class="table">
-    <thead>
-    <tr>
-        <th>Nazwa prod</th>
-        <th>Ilosc</th>
-        <th>Cena</th>
-        <th>Wartosc</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model.Items)
-    {
-        <tr>
-            <td>@item.Product.Name</td>
-            <td>@item.Quantity</td>
-            <td>@item.Product.Price.ToString("c")</td>
-            <td>@((item.Product.Price*item.Quantity).ToString("c"))</td>
-            <td>
-                <form asp-action="RemoveLine" method="post">
-                    <input type="hidden" name="productId" asp-for="@item.Product.ProductID" />
-                    <button type="submit" class="btn btn-warning">Usuń</button>
-                </form>
-            </td>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nazwa prod</th>
+                <th>Ilosc</th>
+                <th>Cena</th>
+                <th>Wartosc</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Product.Price.ToString("c")</td>
+                    <td>@((item.Product.Price * item.Quantity).ToString("c"))</td>
+                    <td>
+                        <form asp-action="RemoveLine" method="post">
+                            <input type="hidden" name="productId" asp-for="@item.Product.ProductID" />
+                            <button type="submit" class="btn btn-warning">Usuń</button>
+                        </form>
+                    </td>
 
-        </tr>
-    }
-    </tbody>
-</table>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<a href="@Model.ReturnUrl" class="btn btn-primary text-center">Kontynuuj</a>
+    <a href="@Model.ReturnUrl" class="btn btn-primary text-center">Kontynuuj</a>
+    <a class="btn btn-primary" asp-action="Index" asp-controller="Order">Złóż zamówienie</a>
 </body>
 </html>

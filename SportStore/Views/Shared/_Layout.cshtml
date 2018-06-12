@@ -5,18 +5,27 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.msg</title>
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>*@
-    <link asp-href-include="/lib/bootstrap/dist/css/*.css" rel="stylesheet"/>
+    <link asp-href-include="/lib/bootstrap/dist/css/*.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
 </head>
 <body>
     <nav class="navbar navbar-dark bg-primary">
         <span class="navbar-brand" mb-0 h1>Sport Store</span>
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" asp-controller="Order" asp-action="List">Orders List</a>
+            </li>
+        </ul>
+        <div class="text-right">
+            @await Component.InvokeAsync("CartList")
+        </div>
         @if (User.Identity.IsAuthenticated)
         {
-            <a asp-controller="Account" asp-action="Logout" class="navbar-brand">Wyloguj</a>
+            <a asp-controller="Account" asp-action="Logout" class="navbar-brand btn btn-warning">Wyloguj</a>
         }
         else
         {
-            <a asp-controller="Account" asp-action="Index" class="navbar-brand">Zaloguj</a>
+            <a asp-controller="Account" asp-action="Index" class="navbar-brand btn btn-warning">Zaloguj</a>
         }
     </nav>
     <div>

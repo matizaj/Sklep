@@ -1,0 +1,25 @@
+﻿@model Product
+
+<div class="card m-5">
+    <div class="card-header">
+        @Model.Name
+    </div>
+        <div class="card-body">
+            <h5 class="card-title">@Model.Category</h5>
+            <p class="card-text">@Model.Description</p>
+            <p class="card-text">@Model.Price</p>
+            @if (User.Identity.IsAuthenticated)
+                {
+                <a href="#" class="btn btn-primary">Edytuj</a>
+                <a href="#" class="btn btn-primary">Usuń</a>
+                }
+            else
+                {
+                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                <input type="hidden" asp-for="@Model.ProductID" name="productId" />
+                <input name="returnUrl" type="hidden" value="@(ViewContext.HttpContext.Request.PathAndQuery())" />
+                <button type="submit" class="btn btn-primary">Dodaj do koszyka</button>
+                </form>
+                }
+     </div>
+</div>

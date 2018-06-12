@@ -46,5 +46,6 @@ namespace SportStore.Controllers
 
             return RedirectToAction("Index", new { returnUrl });
         }
+
     }
 }

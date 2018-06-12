@@ -3,34 +3,7 @@
 
 @foreach (var p in Model.Products)
 {
-<div class="card m-5">
-    <div class="card-header">
-        @p.Name
-    </div>
-    <div class="card-body">
-        <h5 class="card-title">@p.Category</h5>
-        <p class="card-text">@p.Description</p>
-        <p class="card-text">@p.Price</p>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <a href="#" class="btn btn-primary">Edytuj</a>
-            <a href="#" class="btn btn-primary">Usuń</a>
-        }
-        else
-        {
-            <form asp-controller="Cart" asp-action="AddToCart" method="post">
-                <input type="hidden" asp-for="@p.ProductID" name="productId" />
-                <input name="returnUrl" type="hidden" value="@(ViewContext.HttpContext.Request.PathAndQuery())" />
-                <button type="submit" class="btn btn-primary">Dodaj do koszyka</button>
-            </form>
-        }
-        
-
-
-
-    </div>
-</div>
-    
+    @Html.Partial("ProductSummaryPartial", p)    
 }
 
 <div page-model="@Model.PageInfo" 

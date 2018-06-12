@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Order>
+<h1>Lista zakupów</h1>
+
+@foreach(var o in Model)
+{
+    @o.Name
+    @o.Country
+    @o.Lines.Count()
+}

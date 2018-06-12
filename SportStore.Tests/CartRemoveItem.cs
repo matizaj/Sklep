@@ -17,7 +17,7 @@ namespace SportStore.Tests
             var p2 = new Product() { Name = "P2", ProductID = 2 };
             var p3 = new Product() { Name = "P3", ProductID = 3 };
             var cart = new Cart();
-            cart.AddItem(p1, 1);
+            cart.AddItem(p1, 10);
             cart.AddItem(p2, 1);
             cart.AddItem(p3, 1);
 
