@@ -25,9 +25,11 @@ namespace SportStore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddSession();
             services.AddTransient<IRepository, EFProductRepository>();
-            services.AddSingleton<CartRepository, CartRepository>();
+            services.AddTransient<Cart>(sp=>CartRepository.GetCart(sp));
+
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<UsersDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("UsersConnection")));
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UsersDbContext>()
@@ -42,8 +44,11 @@ namespace SportStore
                 app.UseDeveloperExceptionPage();
                 app.UseStatusCodePages();
             }
+
+            app.UseSession();
             SeedData.Seed(app);
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseMvc(
                 routes =>
                 {
