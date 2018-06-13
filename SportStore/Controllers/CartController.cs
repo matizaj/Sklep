@@ -19,7 +19,7 @@ namespace SportStore.Controllers
         }
         public IActionResult Index(string returnUrl) => View(new CartListViewModel
         {
-            Items=_cartRepo.Items,
+            Cart=_cartRepo,
             ReturnUrl = returnUrl
         });
 
@@ -47,5 +47,14 @@ namespace SportStore.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
+        public IActionResult CartSummaryPartial() => PartialView();
+        [HttpPost]
+        public IActionResult ClearCart()
+        {
+            _cartRepo.Clear();
+            return RedirectToAction("Index", "Product");
+
+        }
     }
+
 }

@@ -16,8 +16,8 @@
                 <a class="nav-link" asp-controller="Order" asp-action="List">Orders List</a>
             </li>
         </ul>
-        <div class="text-right">
-            @await Component.InvokeAsync("CartList")
+        <div id="CartSummary" class="text-right">
+            @await Html.PartialAsync("CartSummaryPartial")
         </div>
         @if (User.Identity.IsAuthenticated)
         {
@@ -25,7 +25,7 @@
         }
         else
         {
-            <a asp-controller="Account" asp-action="Index" class="navbar-brand btn btn-warning">Zaloguj</a>
+            <a asp-controller="Account" asp-action="Login" class="navbar-brand btn btn-warning">Zaloguj</a>
         }
     </nav>
     <div>
@@ -39,7 +39,10 @@
 
         </div>
     </div>
-<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/jquery.unobtrusive-ajax/dist/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/js/site.js"></script>
 </body>
 </html>

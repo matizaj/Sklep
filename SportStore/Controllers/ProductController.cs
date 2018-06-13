@@ -46,6 +46,36 @@ namespace SportStore.Controllers
             ViewBag.SelectedCat = category;
             return View(productList);
         }
+        public ViewResult Edit(int productId)
+        {
+            Product editProduct = repository.Products.FirstOrDefault(e => e.ProductID == productId);
+            return View("Edit",editProduct);
+        }
+        [HttpPost]
+        public IActionResult Edit(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                repository.SaveProduct(product);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(product);
+            }
+        }
+        public ViewResult Create() => View("Edit");
+
+        [HttpPost]
+        public IActionResult Delete(int productId)
+        {
+            Product deletedProduct = repository.DeleteProduct(productId);
+            if (deletedProduct != null)
+            {
+                TempData["message"] = $"{deletedProduct.Name} został usuniety";
+            }
+            return RedirectToAction("Index");
+        }
 
     }
 }

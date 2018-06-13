@@ -7,7 +7,7 @@ namespace SportStore.Models.ViewModels
 {
     public class CartListViewModel
     {
-        public IEnumerable<CartItem> Items { get; set; }
+        public Cart Cart{ get; set; }
         public string ReturnUrl { get; set; }
     }
 }

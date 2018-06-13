@@ -2,9 +2,12 @@
   "name": "asp.net",
   "dependencies": {
     "bootstrap": "v4.1.1",
-    "jQuery": "3.3.1",
+    "jquery": "3.3.1",
     "jquery-validation": "1.17.0",
     "jquery-validation-unobtrusive": "v3.2.10",
-    "font-awesome": "Font-Awesome#v4.7.0"
+    "font-awesome": "Font-Awesome#v4.7.0",
+    "ajax": "v2.3.0",
+    "jquery.unobtrusive-ajax": "v3.2.5"
   }
 }
+

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SportStore.Models;
 using System;
@@ -32,15 +33,19 @@ namespace SportStore.Controllers
             {
                 order.Lines = cart.Items.ToArray();
                 repository.SaveOrder(order);
+                cart.Clear();
                 return RedirectToAction(nameof(Thanks));
             }
             return View(order);
         }
-
+        [Authorize]
         public ViewResult List()
         {
             var ordersList=repository.Orders;
             return View(ordersList);
         }
+
+        //public ViewResult ListShipped() => View(repository.Orders.Where(o => !o.Shipped));
+        //public IActionResult MarkShipped() => View();
     }
 }

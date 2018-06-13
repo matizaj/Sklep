@@ -55,17 +55,17 @@ namespace SportStore
                 {
                     routes.MapRoute(
                         name: null,
-                        template: "Product/{category}/Page{page}",
+                        template: "Products/{category}/Page{page}",
                         defaults: new { controller = "Product", action = "Index" });
 
                     routes.MapRoute(
                         name: null,
-                        template: "Product/Page{page}",
+                        template: "Products/Page{page}",
                         defaults: new { controller = "Product", action = "Index" });
 
                     routes.MapRoute(
                         name: null,
-                        template: "Product/{category}",
+                        template: "Products/{category}",
                         defaults: new { controller = "Product", action = "Index" });
 
                     routes.MapRoute(

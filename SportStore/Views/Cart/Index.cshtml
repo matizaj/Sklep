@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Items)
+            @foreach (var item in Model.Cart.Items)
             {
                 <tr>
                     <td>@item.Product.Name</td>
@@ -35,8 +35,20 @@
                 </tr>
             }
         </tbody>
-    </table>
+        <tfoot>
+            <tr>
+                <td colspan="3">Razem:</td>
+                <td>@Model.Cart.CalculateTotalValue().ToString("c")</td>
+                <td>
+                    <form asp-action="ClearCart" method="post">
+                          <button type="submit" class="btn btn-warning">Usuń</button>
+                    </form>
+                </td>
+            </tr>
 
+        </tfoot>
+    </table>
+    <span>Podsumowanie zakupów: @Model.</span>
     <a href="@Model.ReturnUrl" class="btn btn-primary text-center">Kontynuuj</a>
     <a class="btn btn-primary" asp-action="Index" asp-controller="Order">Złóż zamówienie</a>
 </body>

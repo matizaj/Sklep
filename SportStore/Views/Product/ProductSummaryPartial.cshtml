@@ -10,12 +10,15 @@
             <p class="card-text">@Model.Price</p>
             @if (User.Identity.IsAuthenticated)
                 {
-                <a href="#" class="btn btn-primary">Edytuj</a>
-                <a href="#" class="btn btn-primary">Usuń</a>
+                <a asp-action="Edit" asp-route-productId="@Model.ProductID" class="btn btn-primary">Edytuj</a>
+                <form asp-action="Delete" method="post" class="d-inline-block">
+                    <input type="hidden" name="productId" asp-for="@Model.ProductID" />
+                    <button class="btn btn-primary" type="submit">Usuń</button>
+                </form>                
                 }
             else
                 {
-                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                <form asp-controller="Cart" asp-action="AddToCart" data-ajax="true" data-ajax-complete="onChangeSummaryCart" method="post">
                 <input type="hidden" asp-for="@Model.ProductID" name="productId" />
                 <input name="returnUrl" type="hidden" value="@(ViewContext.HttpContext.Request.PathAndQuery())" />
                 <button type="submit" class="btn btn-primary">Dodaj do koszyka</button>

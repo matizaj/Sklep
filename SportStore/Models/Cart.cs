@@ -22,7 +22,7 @@ namespace SportStore.Models
             }
             else
             {
-                _items.Add(new CartItem { ID = product.ProductID, Product = product, Quantity = quantity });
+                _items.Add(new CartItem { Product = product, Quantity = quantity });
             }
         }
 
@@ -33,5 +33,7 @@ namespace SportStore.Models
         }
         public virtual void RemoveLine(Product product) =>
             _items.RemoveAll(l => l.Product.ProductID == product.ProductID);
+
+        public virtual void Clear() =>_items.Clear();
     }
 }

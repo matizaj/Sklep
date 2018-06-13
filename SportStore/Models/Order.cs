@@ -31,5 +31,7 @@ namespace SportStore.Models
         public string Country { get; set; }
 
         public string GiftWrap { get; set; }
+
+        //public bool Shipped { get; set; }
     }
 }
