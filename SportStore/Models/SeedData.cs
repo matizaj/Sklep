@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace SportStore.Models
 {
-    public static class SeedData
+    public  class SeedData
     {
-        public static void Seed(IApplicationBuilder app)
+        private AppDbContext context;
+        public SeedData(AppDbContext context)
         {
-            var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
-            AppDbContext context = scope.ServiceProvider.GetService< AppDbContext >();
+            this.context = context;
+        }
+        public  void Seed()
+        {            
             if (!context.Products.Any())
             {
                 context.Products.AddRange(

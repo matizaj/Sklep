@@ -30,6 +30,7 @@ namespace SportStore
             services.AddTransient<IRepository, EFProductRepository>();
             services.AddTransient<IOrderRepository, EFOrderRepository>();
             services.AddTransient<Cart>(sp=>CartRepository.GetCart(sp));
+            services.AddTransient<SeedData, SeedData>();
 
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<UsersDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("UsersConnection")));
@@ -47,7 +48,7 @@ namespace SportStore
             }
 
             app.UseSession();
-            SeedData.Seed(app);
+            //SeedData.Seed(app);
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc(

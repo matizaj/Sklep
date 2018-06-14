@@ -47,7 +47,11 @@ namespace SportStore.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public IActionResult CartSummaryPartial() => PartialView();
+        public IActionResult CartSummaryPartial(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return PartialView();
+        }
         [HttpPost]
         public IActionResult ClearCart()
         {

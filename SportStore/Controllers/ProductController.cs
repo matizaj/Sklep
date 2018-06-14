@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SportStore.Infrastructure.Extensions;
 using SportStore.Models;
 using SportStore.Models.ViewModels;
 using System.Collections.Generic;
@@ -12,17 +14,16 @@ namespace SportStore.Controllers
     {
         private int pageSize = 3;
         private IRepository repository;
-        private UserManager<IdentityUser> _userManager;
-        public ProductController(IRepository repo, UserManager<IdentityUser> userManager)
+        private SeedData seedData;
+        public ProductController(IRepository repo, SeedData seed)
         {
             repository = repo;
-            _userManager = userManager;
+            seedData = seed;
         }
        
         public async Task<ViewResult> Index(string category, int page=1)
         {
-            await SeedUsers.Seed(_userManager);
-
+            
             var products = repository.Products;
             if (!string.IsNullOrEmpty(category))
             {
@@ -44,6 +45,7 @@ namespace SportStore.Controllers
                 }
             };
             ViewBag.SelectedCat = category;
+            ViewBag.ReturnUrl = Request.PathAndQuery();
             return View(productList);
         }
         public ViewResult Edit(int productId)
@@ -64,7 +66,7 @@ namespace SportStore.Controllers
                 return View(product);
             }
         }
-        public ViewResult Create() => View("Edit");
+        public ViewResult Create() => View("Edit", new Product());//trzeba podac model new Product() bo inaczej model jest nullem
 
         [HttpPost]
         public IActionResult Delete(int productId)
@@ -75,6 +77,24 @@ namespace SportStore.Controllers
                 TempData["message"] = $"{deletedProduct.Name} został usuniety";
             }
             return RedirectToAction("Index");
+        }
+        [HttpPost]
+        [Authorize]
+        public IActionResult SeedData()
+        {
+            seedData.Seed();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [Authorize]
+        public IActionResult Save(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                repository.SaveProduct(product);
+                return RedirectToAction("Index");
+            }
+            return View(product);
         }
 
     }

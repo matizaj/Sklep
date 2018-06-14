@@ -1,5 +1,10 @@
 ﻿@model ProductListViewModel
-
+@if (User.Identity.IsAuthenticated & !Model.Products.Any())
+{
+    <form asp-action="SeedData" method="post">
+        <button type="submit"class="btn btn-primary">Wczytaj produkty do bazy</button>
+    </form>
+}
 
 @foreach (var p in Model.Products)
 {

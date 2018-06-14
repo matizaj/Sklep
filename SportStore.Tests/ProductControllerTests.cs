@@ -36,5 +36,40 @@ namespace SportStore.Tests
             //assert
             //Assert.Equal(3, result.Count());
         }
+
+        [Fact]
+        public void CanSaveValidProduct()
+        {
+            //arrange
+            Mock<IRepository> mock = new Mock<IRepository>();
+            var p1 = new Product { Name = "P1", ProductID = 1 };
+            var controller = new ProductController(mock.Object, null);
+
+            //act
+            var result = controller.Save(p1);
+
+            //assert
+            mock.Verify(m => m.SaveProduct(p1));
+            Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("Index", (result as RedirectToActionResult).ActionName);
+        }
+
+        [Fact]
+        public void CannotSaveInvalidProduct()
+        {
+            //arrange
+            Mock<IRepository> mock = new Mock<IRepository>();
+            var p1 = new Product { Name = "P1", ProductID = 1 };
+            var controller = new ProductController(mock.Object, null);
+            controller.ModelState.AddModelError("error", "error");
+
+            //act
+            var result = controller.Save(p1);
+
+            //assert
+            mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never);
+            Assert.IsType<ViewResult>(result);
+            Assert.Equal("Index", (result as ViewResult).Model);
+        }
     }
 }

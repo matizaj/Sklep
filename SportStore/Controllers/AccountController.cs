@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SportStore.Models;
 using SportStore.Models.ViewModels;
 
 namespace SportStore.Controllers
@@ -11,7 +12,11 @@ namespace SportStore.Controllers
     public class AccountController:Controller
     {
         private SignInManager<IdentityUser> _signInManager;
-        public AccountController(SignInManager<IdentityUser> signInManager) => _signInManager = signInManager;
+        public AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+        {
+            _signInManager = signInManager;
+            SeedUsers.Seed(userManager).Wait();
+        }
         
         public ViewResult Login(string returnUrl)
         {

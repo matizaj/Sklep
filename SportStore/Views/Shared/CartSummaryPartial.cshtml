@@ -1,1 +1,2 @@
-﻿@await Component.InvokeAsync("CartList")
+﻿
+@await Component.InvokeAsync("CartList", new {returnUrl= ViewBag.ReturnUrl })

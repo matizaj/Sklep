@@ -1,3 +1,5 @@
 ﻿function onChangeSummaryCart() {
-    $("#CartSummary").load("/Cart/CartSummaryPartial");
+    
+    var url = "/Cart/CartSummaryPartial?returnUrl=" + $("#RequestPathAndQuery").val();
+    $("#CartSummary").load(url);
 }

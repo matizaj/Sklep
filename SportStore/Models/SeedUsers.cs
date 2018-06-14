@@ -10,7 +10,7 @@ namespace SportStore.Models
     {
         public static async Task Seed(UserManager<IdentityUser> userManager)
         {
-            IdentityUser user = await userManager.FindByIdAsync("admin@admin.pl");
+            IdentityUser user = await userManager.FindByNameAsync("admin@admin.pl");
             if (user == null)
             {
                 user = new IdentityUser("admin@admin.pl");
